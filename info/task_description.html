@@ -1,52 +1,35 @@
 <!-- Describe task in general -->
 
 <p>
-    You are given a list of files. You need to sort this list by the file extension. 
-    The files with the same extension should be sorted by name.
+    You are given {% if is_js %}an array{% else %}a list{% endif %} of files. You need to sort this list by the file extension. 
+    The files with the same extension (or without one) should be sorted by name.
 </p>
 
 <p>Some possible cases:</p>
 
 <ul>
     <li>Filename cannot be an empty string;</li>
-    <li>Files without the extension should go before the files with one;</li>
-    <li>Filename ".config" has an empty extension and a name ".config";</li>
-    <li>Filename "config." has an empty extension and a name "config.";</li>
-    <li>Filename "table.imp.xls" has an extension "xls" and a name "table.imp";</li>
-    <li>Filename ".imp.xls" has an extension "xls" and a name ".imp".</li>
+    <li>Sorting order: files without name, files without extension, files with both;</li>
+    <li>Filename ".config" or "config." is all name with an empty extension;</li>
+    <li>Filename like "str1.str2.str3" has an extension "str3" and a name "str1.str2";</li>
+    <li>Filename like ".str1.str2" has an extension "str2" and a name ".str1".</li>
 </ul>
 
 <!-- Explain input and output values -->
 <p>
-    <strong>Input: </strong> A list of filenames. 
+    <strong>Input:</strong> {% if is_js %}Array{% else %}List{% endif %} of strings. 
 </p>
 
 <p>
-    <strong>Output: </strong> A list of filenames.
+    <strong>Output:</strong> {% if is_js %}Array{% else %}List{% endif %} of strings.
 </p>
 
 
 <!-- Give some usage examples -->
 <div class="for_info_only">
     <p>
-        <strong>Example:</strong>
+        <strong>Examples:</strong>
     </p>
 
-{% if interpreter.slug == "js-node" %}
-<pre class="brush: javascript">sortByExt(['1.cad', '1.bat', '1.aa']) == ['1.aa', '1.bat', '1.cad']
-sortByExt(['1.cad', '1.bat', '1.aa', '2.bat']) == ['1.aa', '1.bat', '2.bat', '1.cad']
-sortByExt(['1.cad', '1.bat', '1.aa', '.bat']) == ['.bat', '1.aa', '1.bat', '1.cad']
-sortByExt(['1.cad', '1.bat', '.aa', '.bat']) == ['.aa', '.bat', '1.bat', '1.cad']
-sortByExt(['1.cad', '1.', '1.aa']) == ['1.', '1.aa', '1.cad']
-sortByExt(['1.cad', '1.bat', '1.aa', '1.aa.doc']) == ['1.aa', '1.bat', '1.cad', '1.aa.doc']
-</pre>
-{% else %}
-<pre class="brush: python">sort_by_ext(['1.cad', '1.bat', '1.aa']) == ['1.aa', '1.bat', '1.cad']
-sort_by_ext(['1.cad', '1.bat', '1.aa', '2.bat']) == ['1.aa', '1.bat', '2.bat', '1.cad']
-sort_by_ext(['1.cad', '1.bat', '1.aa', '.bat']) == ['.bat', '1.aa', '1.bat', '1.cad']
-sort_by_ext(['1.cad', '1.bat', '.aa', '.bat']) == ['.aa', '.bat', '1.bat', '1.cad']
-sort_by_ext(['1.cad', '1.', '1.aa']) == ['1.', '1.aa', '1.cad']
-sort_by_ext(['1.cad', '1.bat', '1.aa', '1.aa.doc']) == ['1.aa', '1.bat', '1.cad', '1.aa.doc']
-</pre>
-{% endif %}
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
 </div>
