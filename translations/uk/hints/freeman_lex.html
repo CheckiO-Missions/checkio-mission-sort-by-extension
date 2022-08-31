@@ -1,0 +1,179 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        Я не маю уявлення, як почати розв'язувати цю місію.
+    </div>
+    <div class="answer">
+        Загальна ідея у тому, щоб правильно розбити кожне файлове імя на суто 
+        ім'я і розширення, і використати ці частини як ключ у функції сортування.
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        З якого інструменту мені почати?
+    </div>
+    <div class="answer">
+        Прочитай про функцію <a target="_blank" href="https://www.w3schools.com/python/ref_func_sorted.asp">sorted()</a>.
+        Вона повертає список, відсортований відповідно до її аргументу 'key'. Цей
+        аргумент застосовується до кожного елементу вхідного списку, щоб знайти 
+        позицію цього елемента у остаточному списку. Тож ти вже можеш написати
+        визначення функції і вираз return:
+    <br />
+    <br />
+        <pre class="brush: python">
+def sort_by_ext(files: list[str]) -> list[str]:
+     
+    return sorted(files, key=sort_key)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Що мені далі робити із ключем сортування 'sort_key'?
+    </div>
+    <div class="answer">
+        Цей аргумент 'sort_key' сам є функцією. Тож тобі потрібно написати додаткову 
+        функцію 'sort_key', яка прийматиме одне файлове ім'я як аргумент і 
+        повертатиме його параметри для використання при сортуванні.
+    <br />
+    <br />
+        <pre class="brush: python">
+def sort_key(file: str):
+
+    # певні операції
+    return ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Я все ще не розумію, як знайти ці параметри сортування
+        для кожного файлового імені.
+    </div>
+    <div class="answer">
+        Прочитай про рядковий метод <a target="_blank" href="https://www.w3schools.com/python/ref_string_rpartition.asp">str.rpartition(arg)</a>.
+        Він розбиває рядок на три частини: до arg, arg, після arg. Використовується
+        остання поява arg у рядку. У випадку цієї місії arg - це "." (крапка).
+        Розширення файлу це частина файлового імені після останньої крапки.
+        Все, що до крапки, це ім'я файлу.
+        <br />
+        <br />
+        <pre class="brush: python">
+def sort_key(file: str):
+
+    name, dot, ext = file.rpartition(".")   
+         
+    return ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Що робити далі? Потрібна підказка.
+    </div>
+    <div class="answer">
+        Так, це найважливіший крок. Як я казав вище, тобі слід використати ім'я і
+        розширення файлу як ключ сортування. Спочатку ти маєш сортувати файли за
+        розширенням, потім (у випадку однакового розширення або його відсутності)
+        - за іменем. Тож це дає тобі два параметри сортування, якщо записати їх у
+        вигляді кортежу:
+        <br />
+        <br />
+        <pre class="brush: python">
+(ext, name)
+        </pre>
+        Але це працює лише якщо у файлу є ім'я:
+        <br />
+        <br />
+        <pre class="brush: python">
+(ext, name) if name ...        
+        </pre>
+        Якщо немає, такі файли мають йти по порядку раніше за файли з іменем, і 
+        повинні бути відсортовані за розширенням. Тож у цьому випадку, в якості 
+        пари параметрів сортування ти можеш використати кортеж ("", ext). Порожній
+        рядок розмістить ці файли перед тими, що мають імя. Вираз із параметрами
+        сортування повністю матиме вигляд:
+        <br />
+        <br />
+        <pre class="brush: python">
+(ext, name) if name else ("", ext)
+# або записаний як кортеж кортежів із вибором за індексом:
+(("", ext), (ext, name))[bool(name)] 
+        </pre>
+        Запиши цей вираз до return твоєї функції 'sort_key':
+        <br />
+        <br />
+        <pre class="brush: python">
+def sort_key(file):
+
+    name, _, ext = file.rpartition(".")
+        
+    return (("", ext), (ext, name))[bool(name)]        
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        То як має виглядати моє остаточне рішення?
+    </div>
+    <div class="answer">
+        Here it is:
+        <br />
+        <br />
+        <pre class="brush: python">
+def sort_by_ext(files: list[str]) -> list[str]:
+
+    return sorted(files, key=sort_key)
+        
+def sort_key(file) -> tuple[str, str]:
+        
+    name, dot, ext = file.rpartition(".")
+        
+    return (("", ext), (ext, name))[bool(name)]        
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Покажи мені більше розв'язків!<br />
+        Адже я хочу стати справжнім Python Ніндзею!
+    </div>
+    <div class="answer">
+        Звісно, тримай!<br />
+        Використання rsplit() з аргументом maxsplit=1 замість rpartition і анонімний
+        lambda вираз замість додаткової def-функції.
+        <br />
+        <br />
+        <pre class="brush: python">
+def sort_by_ext(files: list[str]) -> list[str]:
+
+    return sorted(files, key = lambda file:
+                [(b, a) if a else (a, b) for (a, b) in [file.rsplit('.', 1)]])
+        </pre>
+        Використання модуля re для заміни порядку частин в імені файлу.
+        <br />
+        <br />
+        <pre class="brush: python">
+import re   
+
+
+def sort_by_ext(files):
+
+    params = r"(.+)\.(.*)|(.+)", r"\2 \3\1"
+
+    return sorted(files, key = lambda x: re.sub(*params, x))
+        </pre>
+        <br />
+        <br />
+        Тисни "Best solutions" в меню місії і побачиш багато інших цікавих розв'язків!
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Дякую! Тепер я знаю і розумію більше! Все працює як слід!
+    </div>
+    <div class="answer">
+        Приємно це чути!
+    </div>
+</div>
+</body>
