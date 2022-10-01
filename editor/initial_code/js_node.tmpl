@@ -10,13 +10,13 @@ function sortByExt(files: string[]): string[] {
 
 {% block example %}
 console.log('Example:');
-console.log(sortByExt(['1.cad', '1.bat', '1.aa']))
+console.log(JSON.stringify(sortByExt(['1.cad', '1.bat', '1.aa'])))
 {% endblock %}
 
 // These "asserts" are used for self-checking
 {% block tests %}
 {% for t in tests %}
-assert.strictEqual({% block call %}sortByExt({{t.input|j_args}}){% endblock %}, {% block result %}{{t.answer|j}}{% endblock %});{% endfor %}
+assert.deepStrictEqual({% block call %}sortByExt({{t.input|j_args}}){% endblock %}, {% block result %}{{t.answer|j}}{% endblock %});{% endfor %}
 {% endblock %}
 
 {% block final %}
