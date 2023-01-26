@@ -1,35 +1,27 @@
 <!-- Describe task in general -->
-
 <p>
     Тобі даний {% if is_js %}масив{% else %}список{% endif %} файлів. Потрібно відсортувати його за розширенням файлів. 
     Файли з однаковим розширенням (або без нього) повинні сортуватися за іменем.
 </p>
-
 <p>Окремі можливі випадки:</p>
-
 <ul>
     <li>Файл не може бути порожнім рядком;</li>
     <li>Порядок сортування: файли без імені, файли без розширення, файли з іменем та розширенням;</li>
-    <li>Файли ".config" or "config." це все ім'я з порожнім розширенням;</li>
-    <li>Файли виду "str1.str2.str3" мають розширення "str3" і ім'я "str1.str2";</li>
-    <li>Файли виду ".str1.str2" мають розширення "str2" і ім'я ".str1".</li>
+    <li>Файли <b class="code">.config</b> або <b class="code">config.</b> це все ім'я з порожнім розширенням;</li>
+    <li>Файли виду <b class="code">str1.str2.str3</b> мають розширення <b class="code">str3</b> і ім'я <b class="code">str1.str2</b>;</li>
+    <li>Файли виду <b class="code">.str1.str2</b> мають розширення <b class="code">str2</b> і ім'я <b class="code">.str1</b>.</li>
 </ul>
-
 <!-- Explain input and output values -->
 <p>
     <strong>Вхідні дані:</strong> {% if is_js %}Масив{% else %}Список{% endif %} рядків. 
 </p>
-
 <p>
     <strong>Output:</strong> {% if is_js %}Масив{% else %}Список{% endif %} рядків.
 </p>
-
-
 <!-- Give some usage examples -->
 <div class="for_info_only">
     <p>
         <strong>Приклади:</strong>
     </p>
-
-<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+    <pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
 </div>
