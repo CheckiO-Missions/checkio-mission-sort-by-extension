@@ -1,24 +1,26 @@
 <body data-author="freeman_lex">
 <div class="question-answer">
     <div class="question">
-        I have no idea how to start solving this mission.
+        <p>
+            I have no idea how to start solving this mission.
+        </p>
     </div>
     <div class="answer">
-        The general idea is to correctly split each filename into name and
-        extension and use these parts as key in sorting function.
+        <p>
+            💡 The general idea is to correctly split each filename into name and extension and use these parts as key in sorting function.
+        </p>
     </div>
 </div>
 <div class="question-answer">
     <div class="question">
-        What instrument should I start from?
+        <p>
+            What instrument should I start from?
+        </p>
     </div>
     <div class="answer">
-        Read about <a target="_blank" href="https://www.w3schools.com/python/ref_func_sorted.asp">sorted()</a> function.
-        It returns a list, sorted according to its 'key' argument. This argument
-        is used to each element of input list to find its position in final list.
-        So you may already write function declaration and return statement:
-    <br />
-    <br />
+        <p>
+            Read about <a target="_blank" href="https://www.w3schools.com/python/ref_func_sorted.asp">sorted()</a> function. It returns a list, sorted according to its <b class="code">key</b> argument. This argument is used to each element of input list to find its position in final list. So you may already write function declaration and <b class="code">return</b> statement:
+        </p>
         <pre class="brush: python">
 def sort_by_ext(files: list[str]) -> list[str]:
      
@@ -28,37 +30,37 @@ def sort_by_ext(files: list[str]) -> list[str]:
 </div>
 <div class="question-answer">
     <div class="question">
-        How to proceed with 'sort_key'?
+        <p>
+            How to proceed with <b class="code">sort_key</b>?
+        </p>
     </div>
     <div class="answer">
-        This argument 'sort_key' is a function itself. So you need to write 
-        additional function 'sort_key', which takes a single filename as argument
-        and returns its parameter(s) to use in sorting.
-    <br />
-    <br />
+        <p>
+            This argument <b class="code">sort_key</b> is a function itself. So you need to write additional function <b class="code">sort_key</b>, which takes a single filename as an argument and returns its parameter(s) to use in sorting.
+        </p>
         <pre class="brush: python">
 def sort_key(file: str):
 
-    # some operations
+    ...
+
     return ...
         </pre>
     </div>
 </div>
 <div class="question-answer">
     <div class="question">
-        I still don't understand, how to find these sorting parameters for each filename. 
+        <p>
+            I still don't understand, how to find these sorting parameters for each filename. 
+        </p>
     </div>
     <div class="answer">
-        Read about <a target="_blank" href="https://www.w3schools.com/python/ref_string_rpartition.asp">str.rpartition(arg)</a> string method.
-        It splits a string into three parts: before arg, arg, after arg. The last
-        occurrence of arg is used. Extension of file is the part of filename after
-        last dot. Everything before dot is a name.
-        <br />
-        <br />
+        <p>
+            Read about <a target="_blank" href="https://www.w3schools.com/python/ref_string_rpartition.asp">str.rpartition(arg)</a> string method. It splits a string into three parts: before <b class="code">arg</b>, <b class="code">arg</b>, after <b class="code">arg</b>. The last occurrence of <b class="code">arg</b> is used. Extension of file is the part of filename after last dot. Everything before dot is a name.
+        </p>
         <pre class="brush: python">
 def sort_key(file: str):
 
-    name, dot, ext = file.rpartition(".")   
+    name, dot, ext = file.rpartition(".")
          
     return ...
         </pre>
@@ -66,38 +68,34 @@ def sort_key(file: str):
 </div>
 <div class="question-answer">
     <div class="question">
-        What to do next? I need a hint.
+        <p>
+            What to do next? I need a hint.
+        </p>
     </div>
     <div class="answer">
-        Yes, that is the most important step. As I said above, you should use a
-        name and extension of file as a sorting key. You need to sort files first
-        by extensions, then (if extension is the same or absent) - by name. So,
-        it gives you two sorting parameters, if written as a tuple:
-        <br />
-        <br />
+        <p>
+            Yes, that is the most important step. As I said above, you should use a name and extension of file as a sorting key. You need to sort files first by extensions, then (if extension is the same or absent) - by name. So, it gives you two sorting parameters, if written as a tuple:
+        </p>
         <pre class="brush: python">
 (ext, name)
         </pre>
-        But this works if filename has a name:
-        <br />
-        <br />
+        <p>
+            But this works if filename has a name:
+        </p>
         <pre class="brush: python">
 (ext, name) if name ...        
         </pre>
-        If not, filename should goes before ones with name and be sorted by
-        extension as well. So in this case as a pair of sorting parameters you may
-        use a tuple ("", ext). Empty string puts these filenames before ones with
-        names in sorting. So, the whole sorting parameters expression is:
-        <br />
-        <br />
+        <p>
+            If not, filename should goes before ones with name and be sorted by extension as well. So in this case as a pair of sorting parameters you may use a tuple <b class="code">("", ext)</b>. Empty string puts these filenames before ones with names in sorting. So, the whole sorting parameters expression is:
+        </p>
         <pre class="brush: python">
 (ext, name) if name else ("", ext)
 # or written as a tuple of tuples with excess by index:
 (("", ext), (ext, name))[bool(name)] 
         </pre>
-        Use these expressions as in return statement of your 'sort_key' function:
-        <br />
-        <br />
+        <p>
+            Use these expressions as in <b class="code">return</b> statement of your <b class="code">sort_key</b> function:
+        </p>
         <pre class="brush: python">
 def sort_key(file):
 
@@ -109,12 +107,14 @@ def sort_key(file):
 </div>
 <div class="question-answer">
     <div class="question">
-        So, how my final solution should look like?
+        <p>
+            So, how my final solution should look like?
+        </p>
     </div>
     <div class="answer">
-        Here it is:
-        <br />
-        <br />
+        <p>
+            Here it is:
+        </p>
         <pre class="brush: python">
 def sort_by_ext(files: list[str]) -> list[str]:
 
@@ -130,24 +130,25 @@ def sort_key(file) -> tuple[str, str]:
 </div>
 <div class="question-answer">
     <div class="question">
-        Show me more solutions!<br />
-        'Cause I wanna be a real Python Ninnjaa!
+        <p>
+            Show me more solutions!<br />
+        'Cause I wanna be a real 🥇 Python Ninnjaa!
+        </p>
     </div>
     <div class="answer">
-        Sure, grab it!<br />
-        Using rsplit() with maxsplit=1 instead of rpartition and anonymous lambda
-        expression instead of named additional function.
-        <br />
-        <br />
+        <p>Sure, grab it!</p>
+        <p>
+            Using <b class="code">rsplit()</b> with <b class="code">maxsplit=1</b> instead of <b class="code">rpartition</b> and anonymous function (<b class="code">lambda</b>   expression) instead of named additional function.
+        </p>
         <pre class="brush: python">
 def sort_by_ext(files: list[str]) -> list[str]:
 
     return sorted(files, key = lambda file:
                 [(b, a) if a else (a, b) for (a, b) in [file.rsplit('.', 1)]])
         </pre>
-        Using re module to replace an order of parts in filename.
-        <br />
-        <br />
+        <p>
+            Using <b class="code">re</b> module to replace an order of parts in filename.
+        </p>
         <pre class="brush: python">
 import re   
 
@@ -158,18 +159,22 @@ def sort_by_ext(files):
 
     return sorted(files, key = lambda x: re.sub(*params, x))
         </pre>
-        <br />
-        <br />
-        Click "Best solutions" at mission menu and see a lot of other
-        interesting solutions!
+        <p><b>
+           Click "Best solutions" at mission menu and see a lot of other interesting solutions! 
+        </b></p>
     </div>
 </div>
 <div class="question-answer">
     <div class="question">
-        Thanks! I know and understand more now! Everything works fine!
+        <p>
+            Thanks! I know and understand more now! Everything works fine!
+        </p>
     </div>
     <div class="answer">
-        Glad to hear it!
+        <p>
+            👍 Glad to hear it!
+        </p>
+        
     </div>
 </div>
 </body>
