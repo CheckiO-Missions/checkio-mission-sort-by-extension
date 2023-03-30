@@ -115,6 +115,7 @@ def sort_key(file):
         <p>
             Here it is:
         </p>
+        <div class="spoiler">
         <pre class="brush: python">
 def sort_by_ext(files: list[str]) -> list[str]:
 
@@ -126,6 +127,7 @@ def sort_key(file) -> tuple[str, str]:
         
     return (("", ext), (ext, name))[bool(name)]        
         </pre>
+        </div>
     </div>
 </div>
 <div class="question-answer">
@@ -140,15 +142,18 @@ def sort_key(file) -> tuple[str, str]:
         <p>
             Using <b class="code">rsplit()</b> with <b class="code">maxsplit=1</b> instead of <b class="code">rpartition</b> and anonymous function (<b class="code">lambda</b>   expression) instead of named additional function.
         </p>
+        <div class="spoiler">
         <pre class="brush: python">
 def sort_by_ext(files: list[str]) -> list[str]:
 
     return sorted(files, key = lambda file:
                 [(b, a) if a else (a, b) for (a, b) in [file.rsplit('.', 1)]])
         </pre>
+        </div>
         <p>
             Using <b class="code">re</b> module to replace an order of parts in filename.
         </p>
+        <div class="spoiler">
         <pre class="brush: python">
 import re   
 
@@ -159,6 +164,7 @@ def sort_by_ext(files):
 
     return sorted(files, key = lambda x: re.sub(*params, x))
         </pre>
+        </div>
         <p><b>
            Click "Best solutions" at mission menu and see a lot of other interesting solutions! 
         </b></p>
