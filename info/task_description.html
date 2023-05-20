@@ -1,8 +1,7 @@
 <!-- Describe task in general -->
 
 <p>
-    You are given {% if is_js %}an array{% else %}a list{% endif %} of files. You need to sort this list by the file extension. 
-    The files with the same extension (or without one) should be sorted by name.
+    You are given {% if is_js %}an <span translate="repeat">array</span>{% else %}a <span translate="repeat">list</span>{% endif %} of files. You need to sort this {% if is_js %}<span translate="repeat">array</span>{% else %}<span translate="repeat">list</span>{% endif %} by the file extension. The files with the same extension (or without one) should be sorted by name.
 </p>
 
 <p>Some possible cases:</p>
@@ -16,10 +15,10 @@
 
 <!-- Explain input and output values -->
 <p>
-    <strong>Input:</strong> {% if is_js %}Array{% else %}List{% endif %} of strings. 
+    <strong>Input:</strong> {% if is_js %}<span translate="repeat">Array</span>{% else %}<span translate="repeat">List</span>{% endif %} of <span translate="repeat">strings</span>. 
 </p>
 <p>
-    <strong>Output:</strong> {% if is_js %}Array{% else %}List{% endif %} of strings.
+    <strong>Output:</strong> {% if is_js %}<span translate="repeat">Array</span>{% else %}<span translate="repeat">List</span>{% endif %} of <span translate="repeat">strings</span>.
 </p>
 <!-- Give some usage examples -->
 <div class="for_info_only">
