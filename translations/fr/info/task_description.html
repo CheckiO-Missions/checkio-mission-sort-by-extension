@@ -1,7 +1,7 @@
 <!-- Describe task in general -->
 
 <p>
-    On vous donne {% if is_js %}un <span>tableau</span> <span>(array)</span>{% else %} une <span>liste</span> <span>(list)</span>{% endif %} de fichiers. Vous devez trier ce<span>tableau</span> {% if is_js %}<span></span> <span>(array)</span><span> </span>{% else %} <span>liste</span> <span>(list)</span>{% endif %} en fonction de l'extension du fichier. Les fichiers avec la même extension (ou sans extension) doivent être triés par nom.
+    On vous donne {% if is_js %}un <span>tableau</span> <span>(array)</span>{% else %}une <span>liste</span> <span>(list)</span>{% endif %} de fichiers. Vous devez trier ce {% if is_js %}<span>tableau</span> <span>(array)</span>{% else %}<span>liste</span> <span>(list)</span>{% endif %} en fonction de l'extension du fichier. Les fichiers avec la même extension (ou sans extension) doivent être triés par nom.
 </p>
 
 <p>Quelques cas possibles:</p>
@@ -15,10 +15,10 @@
 
 <!-- Explain input and output values -->
 <p>
-   <strong>Entrée:</strong> {% if is_js %}<span>Tableau</span> <span>(Array)</span>{% else %}<span>Liste</span> <span>(List)</span>{% endif %} de <span>chaînes</span> <span>(strings)</span>. 
+   <strong>Entrée:</strong> {% if is_js %}<span>Tableau</span> <span>(array)</span>{% else %}<span>Liste</span> <span>(list)</span>{% endif %} de <span>chaînes</span> <span>(strings)</span>. 
 </p>
 <p>
-   <strong>Sortie:</strong> {% if is_js %}<span>Tableau</span> <span>(Array)</span>{% else %}<span>Liste</span> <span>(List)</span>{% endif %} de <span>chaînes</span> <span>(strings)</span>.
+   <strong>Sortie:</strong> {% if is_js %}<span>Tableau</span> <span>(array)</span>{% else %}<span>Liste</span> <span>(list)</span>{% endif %} de <span>chaînes</span> <span>(strings)</span>.
 </p>
 <!-- Give some usage examples -->
 <div class="for_info_only">
