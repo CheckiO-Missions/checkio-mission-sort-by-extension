@@ -1,0 +1,186 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Je n'ai aucune idée de la manière de commencer à résoudre cette mission.
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            💡 L'idée générale est de diviser correctement chaque nom de fichier en nom et extension et d'utiliser ces parties comme clé dans la fonction de tri.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Par quel instrument dois-je commencer?
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            Lisez la fonction <a target="_blank" href="https://www.w3schools.com/python/ref_func_sorted.asp">sorted()</a>. Elle renvoie une liste triée en fonction de son argument <b class="code">key</b>. Cet argument est utilisé pour chaque élément de la liste d'entrée afin de trouver sa position dans la liste finale. Vous avez peut-être déjà écrit la déclaration de la fonction et l'instruction <b class="code">return</b>:
+        </p>
+        <pre class="brush: python">
+def sort_by_ext(files: list[str]) -> list[str]:
+     
+    return sorted(files, key=sort_key)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Comment procéder avec <b class="code">sort_key</b>?
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            L'argument <b class="code">sort_key</b> est une fonction en soi. Vous devez donc écrire une fonction supplémentaire, <b class="code">sort_key</b>, qui prend un seul nom de fichier en argument et renvoie son ou ses paramètres à utiliser pour le tri.
+        </p>
+        <pre class="brush: python">
+def sort_key(file: str):
+
+    ...
+
+    return ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Je ne comprends toujours pas comment trouver ces paramètres de tri pour chaque nom de fichier. 
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            Lisez la méthode <a target="_blank" href="https://www.w3schools.com/python/ref_string_rpartition.asp">str.rpartition(arg)</a> pour les chaînes de caractères. Elle divise une chaîne en trois parties: avant <b class="code">arg</b>, <b class="code">arg</b>, après <b class="code">arg</b>. La dernière occurrence de <b class="code">arg</b> est utilisée. L'extension du fichier est la partie du nom de fichier située après le dernier point. Tout ce qui se trouve avant le point est un nom.
+        </p>
+        <pre class="brush: python">
+def sort_key(file: str):
+
+    name, dot, ext = file.rpartition(".")
+         
+    return ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Que faire ensuite? J'ai besoin d'un indice.
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            Oui, c'est l'étape la plus importante. Comme je l'ai dit plus haut, vous devez utiliser le nom et l'extension du fichier comme clé de tri. Vous devez trier les fichiers d'abord par extension, puis (si l'extension est identique ou absente) - par nom. Cela vous donne donc deux paramètres de tri, si vous les écrivez sous la forme d'un tuple:
+        </p>
+        <pre class="brush: python">
+(ext, name)
+        </pre>
+        <p>
+            Mais cela fonctionne si le nom du fichier a un nom:
+        </p>
+        <pre class="brush: python">
+(ext, name) if name ...        
+        </pre>
+        <p>
+            Si ce n'est pas le cas, le nom de fichier doit être placé avant ceux qui ont un nom et être également trié par extension. Dans ce cas, vous pouvez utiliser un tuple <b class="code">("", ext)</b> comme paire de paramètres de tri. Une chaîne vide place ces noms de fichiers avant ceux qui portent un nom dans le tri. L'expression complète des paramètres de tri est donc la suivante:
+        </p>
+        <pre class="brush: python">
+(ext, name) if name else ("", ext)
+# or written as a tuple of tuples with excess by index:
+(("", ext), (ext, name))[bool(name)] 
+        </pre>
+        <p>
+            Utilisez ces expressions comme dans la déclaration <b class="code">return</b> de votre fonction <b class="code">sort_key</b>:
+        </p>
+        <pre class="brush: python">
+def sort_key(file):
+
+    name, _, ext = file.rpartition(".")
+        
+    return (("", ext), (ext, name))[bool(name)]        
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Alors, à quoi devrait ressembler ma solution finale?
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            La voici:
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def sort_by_ext(files: list[str]) -> list[str]:
+
+    return sorted(files, key=sort_key)
+        
+def sort_key(file) -> tuple[str, str]:
+        
+    name, dot, ext = file.rpartition(".")
+        
+    return (("", ext), (ext, name))[bool(name)]        
+        </pre>
+        </div>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Montrez-moi plus de solutions!<br />
+        parce que je veux être une vraie 🥇 Python Ninnjaa!
+        </p>
+    </div>
+    <div class="answer">
+        <p>Bien sûr, prenez-le!</p>
+        <p>
+            Utilisation de <b class="code">rsplit()</b> avec <b class="code">maxsplit=1</b> au lieu de <b class="code">rpartition</b> et fonction anonyme (<b class="code">lambda</b> expression) au lieu de fonction supplémentaire nommée.
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def sort_by_ext(files: list[str]) -> list[str]:
+
+    return sorted(files, key = lambda file:
+                [(b, a) if a else (a, b) for (a, b) in [file.rsplit('.', 1)]])
+        </pre>
+        </div>
+        <p>
+            Utilisation du module <b class="code">re</b> pour remplacer un ordre de parties dans un nom de fichier.
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+import re   
+
+
+def sort_by_ext(files):
+
+    params = r"(.+)\.(.*)|(.+)", r"\2 \3\1"
+
+    return sorted(files, key = lambda x: re.sub(*params, x))
+        </pre>
+        </div>
+        <p><b>
+           Click "Best solutions" at mission menu and see a lot of other interesting solutions! 
+        </b></p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Merci beaucoup! Je comprends mieux maintenant! Tout fonctionne bien!
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            👍 Heureux de l'apprendre!
+        </p>
+        
+    </div>
+</div>
+</body>
