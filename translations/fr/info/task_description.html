@@ -1,0 +1,29 @@
+<!-- Describe task in general -->
+
+<p>
+    On vous donne {% if is_js %}un <span>tableau</span> <span>(array)</span>{% else %} une <span>liste</span> <span>(list)</span>{% endif %} de fichiers. Vous devez trier ce<span>tableau</span> {% if is_js %}<span></span> <span>(array)</span><span> </span>{% else %} <span>liste</span> <span>(list)</span>{% endif %} en fonction de l'extension du fichier. Les fichiers avec la même extension (ou sans extension) doivent être triés par nom.
+</p>
+
+<p>Quelques cas possibles:</p>
+<ul>
+    <li>Le nom du fichier ne peut pas être une chaîne vide;</li>
+    <li>Ordre de tri: fichiers sans nom, fichiers sans extension, fichiers avec nom et extension;</li>
+    <li>Le nom de fichier <b class="code">.config</b> ou <b class="code">config.</b> est un nom avec une extension vide;</li>
+    <li>Un nom de fichier comme <b class="code">str1.str2.str3</b> a une extension <b class="code">str3</b> et un nom <b class="code">str1.str2</b>;</li>
+    <li>Un nom de fichier comme <b class="code">.str1.str2</b> a une extension <b class="code">str2</b> et un nom <b class="code">.str1</b>.</li>
+</ul>
+
+<!-- Explain input and output values -->
+<p>
+   <strong>Entrée:</strong> {% if is_js %}<span>Tableau</span> <span>(Array)</span>{% else %}<span>Liste</span> <span>(List)</span>{% endif %} de <span>chaînes</span> <span>(strings)</span>. 
+</p>
+<p>
+   <strong>Sortie:</strong> {% if is_js %}<span>Tableau</span> <span>(Array)</span>{% else %}<span>Liste</span> <span>(List)</span>{% endif %} de <span>chaînes</span> <span>(strings)</span>.
+</p>
+<!-- Give some usage examples -->
+<div class="for_info_only">
+    <p>
+        <strong>Exemples:</strong>
+    </p>
+    <pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+</div>
