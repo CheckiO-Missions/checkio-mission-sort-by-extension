@@ -1,0 +1,29 @@
+<!-- Describe task in general -->
+
+<p>
+    Otrzymują Państwo sekwencję plików w postaci ciągów. Proszę posortować tę sekwencję według rozszerzenia pliku. Pliki z tym samym rozszerzeniem (lub bez) powinny być posortowane według nazwy.
+</p>
+
+<p>Niektóre możliwe przypadki:</p>
+<ul>
+    <li>Nazwa pliku nie może być pustym ciągiem;</li>
+    <li>Kolejność sortowania: pliki bez nazwy, pliki bez rozszerzenia, pliki z nazwą i rozszerzeniem;</li>
+    <li>Nazwa pliku <b class="code">.config</b> lub <b class="code">config.</b> to wszystkie nazwy z pustym rozszerzeniem;</li>
+    <li>Nazwa pliku taka jak <b class="code">str1.str2.str3</b> ma rozszerzenie <b class="code">str3</b> i nazwę <b class="code">str1.str2</b>;</li>
+    <li>Nazwa pliku taka jak <b class="code">.str1.str2</b> ma rozszerzenie <b class="code">str2</b> i nazwę <b class="code">.str1</b>.</li>
+</ul>
+
+<!-- Explain input and output values -->
+<p>
+   <strong>Wejście:</strong> {% if is_js %}Tablica{% else %}Lista{% endif %} <span>({% if is_js %}Array{% else %}List{% endif %})</span> ciągów znaków <span>(str{% if is_js %}ing{% endif %})</span>. 
+</p>
+<p>
+   <strong>Dane wyjściowe:</strong> {% if is_js %}Tablica{% else %}Lista{% endif %} <span>({% if is_js %}Array{% else %}List{% endif %})</span> ciągów znaków <span>(str{% if is_js %}ing{% endif %})</span>.
+</p>
+<!-- Give some usage examples -->
+<div class="for_info_only">
+    <p>
+        <strong>Przykłady:</strong>
+    </p>
+    <pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+</div>
