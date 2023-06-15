@@ -1,0 +1,184 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Nie mam pojęcia, jak zacząć rozwiązywać tę misję.
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            chodzi o to, aby poprawnie podzielić każdą nazwę pliku na nazwę i rozszerzenie i użyć tych części jako klucza w funkcji sortowania.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Od jakiego instrumentu powinienem zacząć?
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            Proszę zapoznać się z funkcją <a target="_blank" href="https://www.w3schools.com/python/ref_func_sorted.asp">sorted()</a>. Zwraca ona listę posortowaną według argumentu <b class="code">key</b>. Argument ten jest używany do każdego elementu listy wejściowej, aby znaleźć jego pozycję na liście końcowej. Tak więc mogą już Państwo napisać deklarację funkcji i instrukcję <b class="code">return</b>:
+        </p>
+        <pre class="brush: python">
+def sort_by_ext(files: list[str]) -> list[str]:
+     
+    return sorted(files, key=sort_key)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Jak postępować z <b class="code">sort_key</b>?
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            Ten argument <b class="code">sort_key</b> jest funkcją samą w sobie. Musi więc Pan napisać dodatkową funkcję <b class="code">sort_key</b>, która przyjmuje pojedynczą nazwę pliku jako argument i zwraca jej parametr(y) do wykorzystania w sortowaniu.
+        </p>
+        <pre class="brush: python">
+def sort_key(file: str):
+
+    ...
+
+    return ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Nadal nie rozumiem, jak znaleźć te parametry sortowania dla każdej nazwy pliku. 
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            Proszę przeczytać o metodzie łańcuchowej <a target="_blank" href="https://www.w3schools.com/python/ref_string_rpartition.asp">str.rpartition(arg)</a>. Dzieli ona ciąg znaków na trzy części: przed <b class="code">arg</b>, <b class="code">arg</b>, po <b class="code">arg</b>. Używane jest ostatnie wystąpienie <b class="code">arg</b>. Rozszerzenie pliku to część nazwy pliku po ostatniej kropce. Wszystko przed kropką jest nazwą.
+        </p>
+        <pre class="brush: python">
+def sort_key(file: str):
+
+    name, dot, ext = file.rpartition(".")
+         
+    return ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Co robić dalej? Proszę o podpowiedź.
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            Tak, to jest najważniejszy krok. Jak wspomniałem powyżej, powinien Pan użyć nazwy i rozszerzenia pliku jako klucza sortowania. Musi Pan posortować pliki najpierw według rozszerzenia, a następnie (jeśli rozszerzenie jest takie samo lub go nie ma) - według nazwy. Daje to dwa parametry sortowania, jeśli są zapisane jako krotka:
+        </p>
+        <pre class="brush: python">
+(ext, name)
+        </pre>
+        <p>
+            Ale to działa, jeśli nazwa pliku ma nazwę:
+        </p>
+        <pre class="brush: python">
+(ext, name) if name ...        
+        </pre>
+        <p>
+            Jeśli nie, nazwa pliku powinna znajdować się przed plikami z nazwą i być sortowana według rozszerzenia. Tak więc w tym przypadku jako pary parametrów sortowania można użyć krotki <b class="code">("", ext)</b>. Pusty ciąg znaków umieszcza te nazwy plików przed tymi z nazwami w sortowaniu. Zatem całe wyrażenie parametrów sortowania to:
+        </p>
+        <pre class="brush: python">
+(ext, name) if name else ("", ext)
+# or written as a tuple of tuples with excess by index:
+(("", ext), (ext, name))[bool(name)] 
+        </pre>
+        <p>
+            Proszę użyć tych wyrażeń w instrukcji <b class="code">return</b> funkcji <b class="code">sort_key</b>:
+        </p>
+        <pre class="brush: python">
+def sort_key(file):
+
+    name, _, ext = file.rpartition(".")
+        
+    return (("", ext), (ext, name))[bool(name)]        
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Jak powinno wyglądać moje ostateczne rozwiązanie?
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            Oto ono:
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def sort_by_ext(files: list[str]) -> list[str]:
+
+    return sorted(files, key=sort_key)
+        
+def sort_key(file) -> tuple[str, str]:
+        
+    name, dot, ext = file.rpartition(".")
+        
+    return (("", ext), (ext, name))[bool(name)]        
+        </pre>
+        </div>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Proszę pokazać mi więcej rozwiązań!<br />
+        bo chcę być prawdziwym 🥇 Python Ninnjaa!
+        </p>
+    </div>
+    <div class="answer">
+        <p>Jasne, proszę łapać!</p>
+        <p>
+            Używanie <b class="code">rsplit()</b> z <b class="code">maxsplit=1</b> zamiast <b class="code">rpartition</b> i funkcji anonimowej (wyrażenie<b class="code">lambda</b> ) zamiast nazwanej funkcji dodatkowej.
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def sort_by_ext(files: list[str]) -> list[str]:
+
+    return sorted(files, key = lambda file:
+                [(b, a) if a else (a, b) for (a, b) in [file.rsplit('.', 1)]])
+        </pre>
+        </div>
+        <p>
+            Użycie modułu <b class="code">re</b> do zastąpienia kolejności części w nazwie pliku.
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+import re   
+
+
+def sort_by_ext(files):
+
+    params = r"(.+)\.(.*)|(.+)", r"\2 \3\1"
+
+    return sorted(files, key = lambda x: re.sub(*params, x))
+        </pre>
+        </div>
+        <p>Proszę kliknąć <b>Best Solutions</b> w menu misji i zobaczyć wiele innych ciekawych rozwiązań!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            Dzięki! Teraz wiem i rozumiem więcej! Wszystko działa jak należy!
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            miło mi to słyszeć!
+        </p>
+        
+    </div>
+</div>
+</body>
