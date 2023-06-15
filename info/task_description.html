@@ -1,7 +1,7 @@
 <!-- Describe task in general -->
 
 <p>
-    You are given {% if is_js %}an <span translate="repeat">array</span>{% else %}a <span translate="repeat">list</span>{% endif %} of files. You need to sort this {% if is_js %}<span translate="repeat">array</span>{% else %}<span translate="repeat">list</span>{% endif %} by the file extension. The files with the same extension (or without one) should be sorted by name.
+    You are given a sequence of files as strings. You need to sort this the sequence by the file extension. The files with the same extension (or without one) should be sorted by name.
 </p>
 
 <p>Some possible cases:</p>
@@ -15,10 +15,10 @@
 
 <!-- Explain input and output values -->
 <p>
-    <strong>Input:</strong> {% if is_js %}<span translate="repeat">Array</span>{% else %}<span translate="repeat">List</span>{% endif %} of <span translate="repeat">strings</span>. 
+    <strong>Input:</strong> <span translate="repeat">{% if is_js %}Array{% else %}List{% endif %}</span> of strings <span translate="no">(str{% if is_js %}ing{% endif %})</span>. 
 </p>
 <p>
-    <strong>Output:</strong> {% if is_js %}<span translate="repeat">Array</span>{% else %}<span translate="repeat">List</span>{% endif %} of <span translate="repeat">strings</span>.
+    <strong>Output:</strong> <span translate="repeat">{% if is_js %}Array{% else %}List{% endif %}</span> of strings <span translate="no">(str{% if is_js %}ing{% endif %})</span>.
 </p>
 <!-- Give some usage examples -->
 <div class="for_info_only">
