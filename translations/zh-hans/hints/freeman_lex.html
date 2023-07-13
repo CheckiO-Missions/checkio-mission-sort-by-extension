@@ -1,0 +1,184 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        <p>
+            我不知道如何开始解决这项任务。
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            💡 总体思路是将每个文件名正确分割为名称和扩展名，并将这些部分作为排序功能的关键。
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            我应该从什么仪器开始？
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            请阅读<a target="_blank" href="https://www.w3schools.com/python/ref_func_sorted.asp">sorted()</a> 函数。它返回一个列表，根据其<b class="code">key</b> 参数排序。该参数用于输入列表中的每个元素，以查找其在最终列表中的位置。因此，您可能已经编写了函数声明和<b class="code">return</b> 语句：
+        </p>
+        <pre class="brush: python">
+def sort_by_ext(files: list[str]) -> list[str]:
+     
+    return sorted(files, key=sort_key)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            如何继续<b class="code">sort_key</b> ？
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            这个参数<b class="code">sort_key</b> 本身就是一个函数。因此，您需要编写附加函数<b class="code">sort_key</b> ，该函数以单个文件名为参数，并返回其参数用于排序。
+        </p>
+        <pre class="brush: python">
+def sort_key(file: str):
+
+    ...
+
+    return ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            我仍然不明白，如何为每个文件名找到这些排序参数。 
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            阅读<a target="_blank" href="https://www.w3schools.com/python/ref_string_rpartition.asp">str.rpartition(arg)</a> 字符串方法。它将一个字符串分成三部分：<b class="code">arg</b> 之前 ,<b class="code">arg</b>,<b class="code">arg</b> 之后。使用最后出现的<b class="code">arg</b> 。文件扩展名是文件名中最后一个点之后的部分。点之前的所有内容都是名称。
+        </p>
+        <pre class="brush: python">
+def sort_key(file: str):
+
+    name, dot, ext = file.rpartition(".")
+         
+    return ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            下一步该怎么做？我需要提示。
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            是的，这是最重要的一步。如上所述，您应该使用文件名和扩展名作为排序键。您需要首先根据扩展名对文件进行排序，然后（如果扩展名相同或不存在）根据名称进行排序。因此，如果写成一个元组，就有两个排序参数：
+        </p>
+        <pre class="brush: python">
+(ext, name)
+        </pre>
+        <p>
+            但是，如果文件名有名称，这也是有效的：
+        </p>
+        <pre class="brush: python">
+(ext, name) if name ...        
+        </pre>
+        <p>
+            如果没有，文件名应该排在有名字的文件名之前，并且按照扩展名排序。因此，在这种情况下，作为一对排序参数，您可以使用一个元组<b class="code">("", ext)</b> 。空字符串会将这些文件名放在带名称的文件名之前进行排序。因此，整个排序参数表达式为
+        </p>
+        <pre class="brush: python">
+(ext, name) if name else ("", ext)
+# or written as a tuple of tuples with excess by index:
+(("", ext), (ext, name))[bool(name)] 
+        </pre>
+        <p>
+            在您的<b class="code">sort_key</b> 函数的<b class="code">return</b> 语句中使用这些表达式：
+        </p>
+        <pre class="brush: python">
+def sort_key(file):
+
+    name, _, ext = file.rpartition(".")
+        
+    return (("", ext), (ext, name))[bool(name)]        
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            那么，我的最终解决方案应该是怎样的呢？
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            就是这样：
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def sort_by_ext(files: list[str]) -> list[str]:
+
+    return sorted(files, key=sort_key)
+        
+def sort_key(file) -> tuple[str, str]:
+        
+    name, dot, ext = file.rpartition(".")
+        
+    return (("", ext), (ext, name))[bool(name)]        
+        </pre>
+        </div>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            告诉我更多的解决方案！<br />
+        因为我想成为一个真正的🥇 Python Ninnjaa！
+        </p>
+    </div>
+    <div class="answer">
+        <p>当然，抓住它！</p>
+        <p>
+            使用<b class="code">rsplit()</b> ，用<b class="code">maxsplit=1</b> 代替<b class="code">rpartition</b> ，用匿名函数 (<b class="code">lambda</b> 表达式) 代替命名附加函数。
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def sort_by_ext(files: list[str]) -> list[str]:
+
+    return sorted(files, key = lambda file:
+                [(b, a) if a else (a, b) for (a, b) in [file.rsplit('.', 1)]])
+        </pre>
+        </div>
+        <p>
+            使用<b class="code">re</b> 模块替换文件名中的部件顺序。
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+import re   
+
+
+def sort_by_ext(files):
+
+    params = r"(.+)\.(.*)|(.+)", r"\2 \3\1"
+
+    return sorted(files, key = lambda x: re.sub(*params, x))
+        </pre>
+        </div>
+        <p>点击任务菜单中的<b>Best Solutions</b> ，查看更多有趣的解决方案！</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        <p>
+            谢谢！我现在知道并理解得更多了！一切正常！
+        </p>
+    </div>
+    <div class="answer">
+        <p>
+            很高兴听到这个消息！
+        </p>
+        
+    </div>
+</div>
+</body>

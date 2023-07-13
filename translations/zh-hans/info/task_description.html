@@ -1,0 +1,29 @@
+<!-- Describe task in general -->
+
+<p>
+    您将得到一串文件。您需要根据文件扩展名对该序列进行排序。具有相同扩展名（或没有扩展名）的文件应按名称排序。
+</p>
+
+<p>一些可能的情况：</p>
+<ul>
+    <li>文件名不能为空字符串；</li>
+    <li>排序顺序：没有名称的文件、没有扩展名的文件、有名称和扩展名的文件；</li>
+    <li>文件名<b class="code">.config</b> 或<b class="code">config.</b> 都是带空扩展名的名称；</li>
+    <li>文件名如<b class="code">str1.str2.str3</b> ，扩展名为<b class="code">str3</b> ，名称为<b class="code">str1.str2</b> ；</li>
+    <li>像<b class="code">.str1.str2</b> 这样的文件名有一个扩展名<b class="code">str2</b> 和一个名称<b class="code">.str1</b> 。</li>
+</ul>
+
+<!-- Explain input and output values -->
+<p>
+   <strong>输入：</strong> {% if is_js %}数组{% else %}列表{% endif %} <span>({% if is_js %}Array{% else %}List{% endif %})</span>的字符串 <span>(str{% if is_js %}ing{% endif %})</span>. 
+</p>
+<p>
+   <strong>输出：</strong> {% if is_js %}数组{% else %}列表{% endif %} <span>({% if is_js %}Array{% else %}List{% endif %})</span>的字符串 <span>(str{% if is_js %}ing{% endif %})</span>.
+</p>
+<!-- Give some usage examples -->
+<div class="for_info_only">
+    <p>
+        <strong>示例：</strong>
+    </p>
+    <pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+</div>
