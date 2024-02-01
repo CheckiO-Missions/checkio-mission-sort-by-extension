@@ -1,0 +1,33 @@
+<!-- Describe task in general -->
+
+<p>
+    Вам дана последовательность файлов в виде строк. Вам нужно отсортировать эту последовательность по расширению файла. Файлы с одинаковым расширением (или без него) должны быть отсортированы по имени.
+</p>
+
+<p>Некоторые возможные случаи:</p>
+<ul>
+    <li>Имя файла не может быть пустой строкой;</li>
+    <li>Порядок сортировки: файлы без имени, файлы без расширения, файлы с именем и расширением;</li>
+    <li>Файлы с именами <b class="code">.config</b> или <b class="code">config.</b> это все имена с пустым расширением;</li>
+    <li>Имя файла как <b class="code">str1.str2.str3</b> имеет расширение <b class="code">str3</b> и имя <b class="code">str1.str2</b>;</li>
+    <li>Имя файла как <b class="code">.str1.str2</b> имеет расширение <b class="code">str2</b> и имя <b class="code">.str1</b>.</li>
+</ul>
+
+<p style="text-align: center;">
+    <img  title="example" src="{{MEDIA}}sort-ext.svg" alt="example" style="max-height: 200px"/>
+</p>
+
+<!-- Explain input and output values -->
+<p>
+    <strong>Ввод:</strong> <span translate="repeat">{% if is_js %}Array{% else %}Список{% endif %}</span> строк <span translate="no">(str{% if is_js %}ing{% endif %})</span>.
+</p>
+<p>
+    <strong>Вывод:</strong> <span translate="repeat">{% if is_js %}Array{% else %}Список{% endif %}</span> строк <span translate="no">(str{% if is_js %}ing{% endif %})</span>.
+</p>
+<!-- Give some usage examples -->
+<div class="for_info_only">
+    <p>
+        <strong>Примеры:</strong>
+    </p>
+    <pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+</div>
